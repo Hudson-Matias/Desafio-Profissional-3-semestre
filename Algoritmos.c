@@ -9,21 +9,21 @@
 #define MAX_PASSWORD_LENGTH 20 // Define o comprimento maximo da senha
 #define MAX_FUNCIONARIOS 100 // Define o maximo de funcionario
 
-// Estrutura para armazenar informaÁıes do usuario
+// Estrutura para armazenar informa√ß√µes do usuario
 typedef struct
 {
     char username[MAX_USERNAME_LENGTH+1]; // Nome de usuario
     char password[MAX_PASSWORD_LENGTH+1]; // Senha
 } User;
 
-// DefiniÁ„o da estrutura para armazenar informaÁıes do funcionario
+// Defini√ß√£o da estrutura para armazenar informa√ß√µes do funcionario
 struct funcionario
 {
     char nome[50];
     char funcao[50];
 };
 
-// DefiniÁ„o da estrutura para armazenar informacoes do veiculo
+// Defini√ß√£o da estrutura para armazenar informacoes do veiculo
 typedef struct
 {
     char modelo[50];
@@ -31,7 +31,7 @@ typedef struct
     int status; // 0 - livre; 1 - em uso; 2 - em manutencao
 } Veiculo;
 
-// FunÁ„o para verificar se um usuario ja existe na lista de usuarios
+// Fun√ß√£o para verificar se um usuario ja existe na lista de usuarios
 int user_exists(User users[], int num_users, char username[]);
 
 int opcao;
@@ -66,17 +66,17 @@ int user_exists(User users[], int num_users, char username[])
 
 void login()
 {
-    User users[MAX_USERS]; // Lista de usu·rios
-    int num_users = 0;     // N˙mero atual de usu·rios cadastrados
-    int login_attempts = 0; // N˙mero de tentativas de login
+    User users[MAX_USERS]; // Lista de usu√°rios
+    int num_users = 0;     // N√∫mero atual de usu√°rios cadastrados
+    int login_attempts = 0; // N√∫mero de tentativas de login
 
     // Loop principal do programa
     while (1)
     {
-        // Verifica se o n˙mero m·ximo de tentativas de login foi atingido
+        // Verifica se o n√∫mero m√°ximo de tentativas de login foi atingido
         if (login_attempts >= 3)
         {
-            printf("\nN˙mero m·ximo de tentativas de login excedido. Encerrando o programa.\n");
+            printf("\nN√∫mero m√°ximo de tentativas de login excedido. Encerrando o programa.\n");
             exit(0);
         }
 
@@ -84,7 +84,7 @@ void login()
         printf("1. Login\n");
         printf("2. Cadastro\n");
         printf("0. Sair\n");
-        printf("Escolha uma opÁ„o: ");
+        printf("Escolha uma op√ß√£o: ");
 
         scanf("%d", &opcao);
 
@@ -93,15 +93,15 @@ void login()
         case 1: // Login
             printf("\n=== LOGIN ===\n");
 
-            // LÍ o nome de usu·rio e a senha
+            // L√™ o nome de usu√°rio e a senha
             char username[MAX_USERNAME_LENGTH + 1];
             char password[MAX_PASSWORD_LENGTH + 1];
-            printf("Nome de usu·rio: ");
+            printf("Nome de usu√°rio: ");
             scanf("%s", username);
             printf("Senha: ");
             scanf("%s", password);
 
-            // Verifica se o usu·rio e a senha est„o corretos
+            // Verifica se o usu√°rio e a senha est√£o corretos
             int user_found = 0;
             for (int i = 0; i < num_users; i++)
             {
@@ -117,11 +117,11 @@ void login()
             {
                 printf("\nLogin realizado com sucesso!\n");
                 tela2();
-                return; // Encerra a funÁ„o login()
+                return; // Encerra a fun√ß√£o login()
             }
             else
             {
-                printf("\nUsu·rio ou senha incorretos.\n");
+                printf("\nUsu√°rio ou senha incorretos.\n");
                 login_attempts++;
             }
             break;
@@ -129,22 +129,22 @@ void login()
         case 2: // Cadastro
             printf("\n=== CADASTRO ===\n");
 
-            // LÍ o nome de usu·rio e a senha
+            // L√™ o nome de usu√°rio e a senha
             char new_username[MAX_USERNAME_LENGTH + 1];
             char new_password[MAX_PASSWORD_LENGTH + 1];
-            printf("Novo nome de usu·rio: ");
+            printf("Novo nome de usu√°rio: ");
             scanf("%s", new_username);
             printf("Nova senha: ");
             scanf("%s", new_password);
 
-            // Verifica se o nome de usu·rio j· existe
+            // Verifica se o nome de usu√°rio j√° existe
             if (user_exists(users, num_users, new_username))
             {
-                printf("\nNome de usu·rio j· existe. Tente novamente.\n");
+                printf("\nNome de usu√°rio j√° existe. Tente novamente.\n");
             }
             else
             {
-                // Adiciona o novo usu·rio ‡ lista de usu·rios
+                // Adiciona o novo usu√°rio √† lista de usu√°rios
                 User new_user;
                 strcpy(new_user.username, new_username);
                 strcpy(new_user.password, new_password);
@@ -244,7 +244,7 @@ void cadastroVeiculo()
 
 void reclamacoes()
 {
-    char reclamacao[1000]; // Define um array para armazenar a reclamaÁ„o do usuario
+    char reclamacao[1000]; // Define um array para armazenar a reclama√ß√£o do usuario
 
     // Solicita ao usuario para digitar a reclamacao
     printf("Digite sua reclamacao:\n");
@@ -265,7 +265,7 @@ void reclamacoes()
     // Fecha o arquivo
     fclose(arquivo);
 
-    // Exibe uma mensagem de confirmaÁ„o para o usuario
+    // Exibe uma mensagem de confirma√ß√£o para o usuario
     printf("Sua reclamacao foi salva com sucesso.\n");
 }
 
