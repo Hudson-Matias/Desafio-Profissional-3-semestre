@@ -1,3 +1,6 @@
+create database cidao;
+use cidao;
+
 
 CREATE TABLE tb_rotas (
                 nmRota INT AUTO_INCREMENT NOT NULL,
@@ -53,3 +56,44 @@ FOREIGN KEY (idCaminhao)
 REFERENCES tb_caminhoes  (idCaminhao)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+
+INSERT INTO tb_fucionario (nomeFuncionario, numeroCpf, idadeFuncionario) VALUES
+('João Silva', '12345678901', 30),
+('Maria Santos', '98765432109', 25),
+('Carlos Oliveira', '56789012345', 35);
+
+INSERT INTO tb_rotas (nomeRua, nomeBairro) VALUES
+('Rua Iara', 'Bairro Oliveira'),
+('Rua Moreno', 'Bairro America'),
+('Rua BigCida', 'Bairro Jonas');
+
+INSERT INTO tb_caminhoes (placaCaminhao, marcaCaminhao) VALUES
+('ABC1234', 'Marca Ford'),
+('DEF5678', 'Marca Tesla'),
+('GHI9012', 'Marca Benz');
+
+INSERT INTO tb_lixo (idCaminhao, numeroCartao, nmRota, dataColeta, tipoLixo, quantidadeLixo) VALUES
+(1, 1, 1, '2023-06-01', 'Orgânico', 5.25),
+(2, 2, 2, '2023-06-02', 'Reciclável', 3.8),
+(3, 3, 3, '2023-06-03', 'Resíduos Eletrônicos', 1.2);
+
+
+SELECT l.numeroLote, f.nomeFuncionario, r.nomeRua, c.placaCaminhao, l.dataColeta, l.tipoLixo, l.quantidadeLixo
+FROM tb_lixo l
+JOIN tb_fucionario f ON l.numeroCartao = f.numeroCartao
+JOIN tb_rotas r ON l.nmRota = r.nmRota
+JOIN tb_caminhoes c ON l.idCaminhao = c.idCaminhao;
+
+SELECT tipoLixo, SUM(quantidadeLixo) AS totalQuantidadeLixo
+FROM tb_lixo
+GROUP BY tipoLixo;
+
+SELECT f.nomeFuncionario, l.dataColeta, l.quantidadeLixo
+FROM tb_lixo l
+JOIN tb_fucionario f ON l.numeroCartao = f.numeroCartao
+WHERE l.quantidadeLixo = (
+    SELECT MAX(quantidadeLixo)
+    FROM tb_lixo
+    WHERE dataColeta = '2023-06-01'
+);
