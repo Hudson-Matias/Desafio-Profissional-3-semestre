@@ -97,3 +97,27 @@ WHERE l.quantidadeLixo = (
     FROM tb_lixo
     WHERE dataColeta = '2023-06-01'
 );
+
+SELECT f.nomeFuncionario, SUM(l.quantidadeLixo) AS totalQuantidadeLixo
+FROM tb_lixo l
+INNER JOIN tb_fucionario f ON l.numeroCartao = f.numeroCartao
+GROUP BY f.nomeFuncionario
+HAVING SUM(l.quantidadeLixo) = (
+  SELECT MAX(totalQuantidadeLixo)
+  FROM (
+    SELECT SUM(quantidadeLixo) AS totalQuantidadeLixo
+    FROM tb_lixo
+    GROUP BY numeroCartao
+  ) AS subquery
+);
+
+SELECT r.nmRota, r.nomeRua, r.nomeBairro, COUNT(l.numeroLote) AS numLotes
+FROM tb_rotas r
+INNER JOIN tb_lixo l ON r.nmRota = l.nmRota
+GROUP BY r.nmRota, r.nomeRua, r.nomeBairro;
+
+SELECT l.numeroLote, f.nomeFuncionario, r.nomeRua, r.nomeBairro, c.placaCaminhao, l.dataColeta, l.tipoLixo, l.quantidadeLixo
+FROM tb_lixo l
+INNER JOIN tb_fucionario f ON l.numeroCartao = f.numeroCartao
+INNER JOIN tb_rotas r ON l.nmRota = r.nmRota
+INNER JOIN tb_caminhoes c ON l.idCaminhao = c.idCaminhao;
